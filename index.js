@@ -1,14 +1,15 @@
 /*
     serial-monitor
     Author: Chris Wininger
-    Notes: API_KEY should be defined in a file called .env in the root directory, do not check this file in!
+    Notes: A file called .env should be placed in the root directory. Do not check this file in!
+        It should contain:  the "API_KEY" for the lambda and the SERIAL_PORT address
  */
 require('dotenv').config()
 const SerialPort = require('serialport')
 const axios = require('axios')
 const { throttle }  = require('lodash')
 
-const PORT = '/dev/ttyUSB1'
+const PORT = process.env.SERIAL_PORT
 const BAUD_RATE = 57600
 const lambdaURL = ' https://o1lb60h0zh.execute-api.us-east-1.amazonaws.com/dev/home-monitor-service-log-temp'
 const DEBOUNCE_WAIT = 60000
